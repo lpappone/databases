@@ -11,14 +11,16 @@ describe("Persistent Node Chat Server", function() {
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
       // TODO: Fill this out with your mysql username
-      user: "",
+      user: "root", // added name "root"
       // and password.
-      password: "",
+      password: "", // we commented this out because we don't use the -p flag
       database: "chat"
     });
     dbConnection.connect();
 
-    var tablename = ""; // TODO: fill this out
+    var tablename = prompt("Which table would you like to test (blank for messagesTable)?")
+    if (!tablename) {tablename = "messagesTable";} // prompting for testing ease.
+    // var tablename = ""; // TODO: fill this out // commented this out to use the prompt above.
 
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
@@ -41,8 +43,10 @@ describe("Persistent Node Chat Server", function() {
               /* Now if we look in the database, we should find the
                * posted message there. */
 
-              var queryString = "";
-              var queryArgs = [];
+              var queryString = "select 'messages' from 'messagesTable';";
+              // maybe we need queryArgs?
+              var queryArgs = []; //possibly insert string with semicolon
+
               /* TODO: Change the above queryString & queryArgs to match your schema design
                * The exact query string and query args to use
                * here depend on the schema you design, so I'll leave
@@ -63,7 +67,9 @@ describe("Persistent Node Chat Server", function() {
 
   it("Should output all messages from the DB", function(done) {
     // Let's insert a message into the db
-    var queryString = "";
+    // var queryString = "INSERT INTO 'messagesTable' ('id','text','room','time','hashtag') VALUES (,',',',');"; // this is original prototype.  Removing ID.
+    var queryString = "INSERT INTO 'messagesTable' ('text','room') VALUES ('Men like you can never change!', 'main');";
+    //we may need to include
     var queryArgs = [];
     /* TODO - The exact query string and query args to use
      * here depend on the schema you design, so I'll leave
