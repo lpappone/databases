@@ -25,12 +25,13 @@ DROP TABLE IF EXISTS hashtagsTable;
 -- CREATE TABLE messagesTable (
 CREATE TABLE messagesTable (
   id INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  userid INTEGER NULL DEFAULT NULL,
   text VARCHAR(255) NULL DEFAULT NULL,
   room VARCHAR(255) NULL DEFAULT NULL,
   time TIMESTAMP NULL DEFAULT NULL,
   hashtag VARCHAR(31) NULL DEFAULT NULL,
   PRIMARY KEY (id),
-KEY (hashtag)
+KEY (userid)
 );
 
 
@@ -73,9 +74,9 @@ CREATE TABLE joinUsersMessagesTable (
   id INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
   userID INTEGER NULL DEFAULT NULL,
   messageID INTEGER NULL DEFAULT NULL,
-  PRIMARY KEY (id),
-KEY (userID),
-KEY (messageID)
+  PRIMARY KEY (id)
+-- KEY (userID),
+-- KEY (messageID)
 );
 
 -- ---
@@ -88,9 +89,9 @@ CREATE TABLE joinUserFriendsTable (
   id INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
   follower INTEGER NULL DEFAULT NULL,
   followee INTEGER NULL DEFAULT NULL,
-  PRIMARY KEY (id),
-KEY (follower),
-KEY (followee)
+  PRIMARY KEY (id)
+-- KEY (follower),
+-- KEY (followee)
 );
 
 -- ---
@@ -110,11 +111,11 @@ CREATE TABLE hashtagsTable (
 -- Foreign Keys
 -- ---
 
-ALTER TABLE joinUsersMessagesTable ADD FOREIGN KEY (userID) REFERENCES usersTable (id);
-ALTER TABLE joinUsersMessagesTable ADD FOREIGN KEY (messageID) REFERENCES messagesTable (id);
-ALTER TABLE joinUserFriendsTable ADD FOREIGN KEY (follower) REFERENCES usersTable (id);
-ALTER TABLE joinUserFriendsTable ADD FOREIGN KEY (followee) REFERENCES usersTable (id);
-ALTER TABLE hashtagsTable ADD FOREIGN KEY (messageID) REFERENCES messagesTable (id);
+ALTER TABLE messagesTable ADD FOREIGN KEY (userid) REFERENCES usersTable (id);
+-- ALTER TABLE joinUsersMessagesTable ADD FOREIGN KEY (messageID) REFERENCES messagesTable (id);
+-- ALTER TABLE joinUserFriendsTable ADD FOREIGN KEY (follower) REFERENCES usersTable (id);
+-- ALTER TABLE joinUserFriendsTable ADD FOREIGN KEY (followee) REFERENCES usersTable (id);
+-- ALTER TABLE hashtagsTable ADD FOREIGN KEY (messageID) REFERENCES messagesTable (id);
 
 -- ---
 -- Table Properties
