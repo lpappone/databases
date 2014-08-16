@@ -58,15 +58,15 @@ exports.saveMessage = function(message, userName, roomname, cb){
   var newTime = new Date(); // Time() ???
 
   var queryString1 = "insert into messagesTable (text,room) values ('" + message + "','" + roomname + "'); "; // if this doesn't work, check for extra quotes
-  var queryString2 = "insert into usersTable (id) values ('" + userid + "');";
+  var queryString2 = "insert into usersTable (id) values ('" + userName + "');";
   var queryStringFinal = queryString1 + queryString2; // concatenate query strings and pass together
   var queryArgs = []; //possibly insert string with semicolon
 
-  dbConnection.query(queryString, queryArgs, cb); // then pray
+  dbConnection.query(queryStringFinal, queryArgs, cb); // then pray
 };
 
-exports.saveMessage('You can do this, its basic JavaScript', 'Lauren', 'Floor6', function() {
-  serverHelpers.sendResponse(res, message);
-}); // end exports.saveMessage();
+// exports.saveMessage('You can do this, its basic JavaScript', 'Lauren', 'Floor6', function() {
+//   serverHelpers.sendResponse(res, message);
+// }); // end exports.saveMessage();
 
 

@@ -6,7 +6,7 @@
 
 
 
--- CREATE DATABASE chat;
+CREATE DATABASE chat;
 
 USE chat;
 
